@@ -1,63 +1,163 @@
-import Image from "next/image";
+'use client';
+
+import { useState } from 'react';
+
+type Challenge = {
+  id: number;
+  game: string;
+  goal: string;
+  icon: string;
+  completed: boolean;
+};
 
 export default function Home() {
+  const [challenges, setChallenges] = useState<Challenge[]>([
+    {
+      id: 1,
+      game: 'Air Hockey',
+      goal: 'Gewinne ein Spiel mit 7 Punkten!',
+      icon: '🏒',
+      completed: false,
+    },
+    {
+      id: 2,
+      game: 'Basketball Shootout',
+      goal: 'Triff mindestens 15 Körbe!',
+      icon: '🏀',
+      completed: false,
+    },
+    {
+      id: 3,
+      game: 'Dance Dance Revolution',
+      goal: 'Schaffe einen Song auf Medium!',
+      icon: '🕺',
+      completed: false,
+    },
+  ]);
+
+  const toggleChallenge = (id: number) => {
+    setChallenges(
+      challenges.map((challenge) =>
+        challenge.id === id
+          ? { ...challenge, completed: !challenge.completed }
+          : challenge
+      )
+    );
+  };
+
+  const completedCount = challenges.filter((c) => c.completed).length;
+  const allCompleted = completedCount === challenges.length;
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <div className="min-h-screen bg-gradient-to-br from-red-700 via-green-800 to-red-900 p-4 md:p-8 relative overflow-hidden">
+      {/* Snowflakes Animation */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="snowflake text-white text-2xl absolute animate-fall-1">❄</div>
+        <div className="snowflake text-white text-3xl absolute animate-fall-2" style={{ left: '20%', animationDelay: '2s' }}>❄</div>
+        <div className="snowflake text-white text-2xl absolute animate-fall-3" style={{ left: '40%', animationDelay: '4s' }}>❄</div>
+        <div className="snowflake text-white text-3xl absolute animate-fall-1" style={{ left: '60%', animationDelay: '1s' }}>❄</div>
+        <div className="snowflake text-white text-2xl absolute animate-fall-2" style={{ left: '80%', animationDelay: '3s' }}>❄</div>
+        <div className="snowflake text-white text-3xl absolute animate-fall-3" style={{ left: '90%', animationDelay: '5s' }}>❄</div>
+      </div>
+
+      <main className="max-w-4xl mx-auto relative z-10">
+        {/* Header */}
+        <div className="text-center mb-8 md:mb-12">
+          <h1 className="text-5xl md:text-7xl font-bold text-white mb-4 drop-shadow-lg">
+            🎄 Finn & Max 🎄
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+          <h2 className="text-2xl md:text-4xl font-semibold text-yellow-300 mb-4 drop-shadow-md">
+            Eure Arcade-Challenge!
+          </h2>
+          <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-4 md:p-6 shadow-2xl inline-block">
+            <p className="text-lg md:text-2xl text-gray-800 font-medium">
+              🎮 Schafft alle 3 Challenges im Gamestate! 🎮
+            </p>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        {/* Progress Bar */}
+        <div className="mb-8 md:mb-12 bg-white/90 backdrop-blur-sm rounded-2xl p-4 md:p-6 shadow-2xl">
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-lg md:text-xl font-bold text-gray-800">
+              Fortschritt:
+            </span>
+            <span className="text-2xl md:text-3xl font-bold text-green-600">
+              {completedCount} / {challenges.length}
+            </span>
+          </div>
+          <div className="w-full bg-gray-200 rounded-full h-6 md:h-8 overflow-hidden">
+            <div
+              className="bg-gradient-to-r from-green-500 to-green-600 h-full rounded-full transition-all duration-500 ease-out flex items-center justify-end pr-3"
+              style={{ width: `${(completedCount / challenges.length) * 100}%` }}
+            >
+              {completedCount > 0 && (
+                <span className="text-white font-bold text-sm">
+                  {Math.round((completedCount / challenges.length) * 100)}%
+                </span>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Challenges */}
+        <div className="space-y-4 md:space-y-6 mb-8">
+          {challenges.map((challenge) => (
+            <div
+              key={challenge.id}
+              className={`bg-white/95 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-2xl transition-all duration-300 transform hover:scale-105 ${
+                challenge.completed ? 'ring-4 ring-green-500' : ''
+              }`}
+            >
+              <div className="flex items-start gap-4 md:gap-6">
+                <div className="text-5xl md:text-7xl flex-shrink-0">
+                  {challenge.icon}
+                </div>
+                <div className="flex-grow">
+                  <h3 className="text-2xl md:text-4xl font-bold text-gray-800 mb-2">
+                    {challenge.game}
+                  </h3>
+                  <p className="text-lg md:text-2xl text-gray-600 mb-4">
+                    {challenge.goal}
+                  </p>
+                  <button
+                    onClick={() => toggleChallenge(challenge.id)}
+                    className={`w-full py-4 md:py-6 px-6 rounded-xl font-bold text-xl md:text-2xl transition-all duration-300 transform active:scale-95 ${
+                      challenge.completed
+                        ? 'bg-green-500 text-white hover:bg-green-600'
+                        : 'bg-blue-500 text-white hover:bg-blue-600'
+                    }`}
+                  >
+                    {challenge.completed ? '✅ Geschafft!' : '☐ Challenge starten'}
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Success Message */}
+        {allCompleted && (
+          <div className="bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400 rounded-2xl p-6 md:p-8 shadow-2xl text-center animate-bounce">
+            <p className="text-3xl md:text-5xl font-bold text-gray-800 mb-2">
+              🎉 FANTASTISCH! 🎉
+            </p>
+            <p className="text-xl md:text-3xl text-gray-700">
+              Ihr habt alle Challenges geschafft!
+            </p>
+            <p className="text-lg md:text-2xl text-gray-600 mt-4">
+              Frohe Weihnachten, Finn & Max! 🎅🎄
+            </p>
+          </div>
+        )}
+
+        {/* Footer */}
+        <div className="mt-8 md:mt-12 text-center">
+          <div className="bg-white/80 backdrop-blur-sm rounded-xl p-4 md:p-6 shadow-xl inline-block">
+            <p className="text-base md:text-xl text-gray-700">
+              📍 Gamestate Potsdamer Platz Berlin
+            </p>
+          </div>
         </div>
       </main>
     </div>
