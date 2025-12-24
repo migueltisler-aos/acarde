@@ -136,18 +136,63 @@ export default function Home() {
           ))}
         </div>
 
-        {/* Success Message */}
+        {/* Success Message & Voucher Reveal */}
         {allCompleted && (
-          <div className="bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400 rounded-2xl p-6 md:p-8 shadow-2xl text-center animate-bounce">
-            <p className="text-3xl md:text-5xl font-bold text-gray-800 mb-2">
-              🎉 FANTASTISCH! 🎉
-            </p>
-            <p className="text-xl md:text-3xl text-gray-700">
-              Ihr habt alle Challenges geschafft!
-            </p>
-            <p className="text-lg md:text-2xl text-gray-600 mt-4">
-              Frohe Weihnachten, Finn & Max! 🎅🎄
-            </p>
+          <div className="space-y-6">
+            <div className="bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400 rounded-2xl p-6 md:p-8 shadow-2xl text-center animate-bounce">
+              <p className="text-3xl md:text-5xl font-bold text-gray-800 mb-2">
+                🎉 FANTASTISCH! 🎉
+              </p>
+              <p className="text-xl md:text-3xl text-gray-700">
+                Ihr habt alle Challenges geschafft!
+              </p>
+            </div>
+
+            {/* Voucher Card */}
+            <div className="bg-white rounded-3xl p-6 md:p-10 shadow-2xl border-8 border-yellow-400 relative overflow-hidden">
+              {/* Decorative corners */}
+              <div className="absolute top-0 left-0 text-6xl">🎁</div>
+              <div className="absolute top-0 right-0 text-6xl">🎁</div>
+              <div className="absolute bottom-0 left-0 text-6xl">🎄</div>
+              <div className="absolute bottom-0 right-0 text-6xl">🎄</div>
+
+              <div className="relative z-10 text-center">
+                <p className="text-2xl md:text-4xl font-bold text-gray-800 mb-4">
+                  🎅 Euer Weihnachtsgeschenk! 🎅
+                </p>
+                <div className="bg-gradient-to-r from-red-600 to-green-600 text-white rounded-2xl p-6 md:p-8 mb-6">
+                  <p className="text-3xl md:text-5xl font-bold mb-4">
+                    GUTSCHEIN
+                  </p>
+                  <p className="text-xl md:text-3xl font-semibold mb-2">
+                    für einen Tag bei
+                  </p>
+                  <p className="text-2xl md:text-4xl font-bold">
+                    🎮 GAMESTATE 🎮
+                  </p>
+                  <p className="text-lg md:text-2xl mt-2">
+                    Potsdamer Platz Berlin
+                  </p>
+                </div>
+
+                <p className="text-xl md:text-2xl text-gray-700 mb-6 font-medium">
+                  Spielt alle Arcade-Spiele die ihr wollt!
+                </p>
+
+                <a
+                  href="https://www.gamestate.com/de/potsdamer-platz-berlin/get-your-playcard-for-gamestate-postdamer-platz-berlin"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold text-xl md:text-3xl py-4 md:py-6 px-8 md:px-12 rounded-full shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
+                >
+                  🎮 Jetzt Termin buchen! 🎮
+                </a>
+
+                <p className="text-lg md:text-2xl text-gray-600 mt-6 font-bold">
+                  Frohe Weihnachten, Finn & Max! 🎅🎄
+                </p>
+              </div>
+            </div>
           </div>
         )}
 
