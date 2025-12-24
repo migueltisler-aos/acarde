@@ -37,14 +37,14 @@ export default function MemoryGame({ onComplete, onBack }: { onComplete: () => v
     setWon(false);
   };
 
-  const handleCardClick = (id: number) => {
-    if (flippedCards.length === 2 || cards[id].isFlipped || cards[id].isMatched) return;
+  const handleCardClick = (index: number) => {
+    if (flippedCards.length === 2 || cards[index].isFlipped || cards[index].isMatched) return;
 
     const newCards = [...cards];
-    newCards[id].isFlipped = true;
+    newCards[index].isFlipped = true;
     setCards(newCards);
 
-    const newFlipped = [...flippedCards, id];
+    const newFlipped = [...flippedCards, index];
     setFlippedCards(newFlipped);
 
     if (newFlipped.length === 2) {
@@ -101,10 +101,10 @@ export default function MemoryGame({ onComplete, onBack }: { onComplete: () => v
                 Finde alle Paare!
               </p>
               <div className="grid grid-cols-3 md:grid-cols-4 gap-3 md:gap-4">
-                {cards.map((card) => (
+                {cards.map((card, index) => (
                   <button
                     key={card.id}
-                    onClick={() => handleCardClick(card.id)}
+                    onClick={() => handleCardClick(index)}
                     className={`aspect-square rounded-2xl text-5xl md:text-6xl font-bold transition-all duration-300 transform hover:scale-105 ${
                       card.isFlipped || card.isMatched
                         ? 'bg-white border-4 border-green-500'
