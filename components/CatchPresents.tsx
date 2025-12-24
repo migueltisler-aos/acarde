@@ -20,9 +20,9 @@ export default function CatchPresents({ onComplete, onBack }: { onComplete: () =
   const [gameStarted, setGameStarted] = useState(false);
   const [won, setWon] = useState(false);
   const [lost, setLost] = useState(false);
-  const gameLoopRef = useRef<NodeJS.Timeout>();
-  const timerRef = useRef<NodeJS.Timeout>();
-  const spawnRef = useRef<NodeJS.Timeout>();
+  const gameLoopRef = useRef<NodeJS.Timeout | null>(null);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const spawnRef = useRef<NodeJS.Timeout | null>(null);
   const nextIdRef = useRef(0);
 
   useEffect(() => {
